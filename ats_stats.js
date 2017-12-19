@@ -139,17 +139,17 @@ $( document ).ready(function() {
 		this.refresh_interval = AUTO_REFRESH_INTERVAL;
 		this.running_idx = [0,0,0,0,0,0,0,0];
 		
-		this.min_interface_flag = $.urlParam('min') === "true";
-		if (typeof($.urlParam('rows')) === 'undefined')
+		this.display_rows = 50;
+		
+		//if (typeof($.urlParam('rows')) === 'undefined')
+		if (isNaN(parseInt($.urlParam('rows'))) === true)
 		{
-			this.display_rows = 500;
 		}
 		else
 		{
-			//this.display_rows = parseInt($.urlParam('rows'));
-			this.display_rows = 500;
-		}
-		
+			this.display_rows = parseInt($.urlParam('rows'));
+		}	
+	
 		this.template_table = _.template($("#template-table").html());
 
 		//var table_html = $(this.template_table({}));
@@ -532,6 +532,15 @@ $( document ).ready(function() {
 					//$($("div[data-my-attr='table']")[tbl])	
 				}
 				
+				for (graph_idx = 0; graph_idx < NUM_GRAPHS; graph_idx++)				
+				{
+					//console.log("that.display_rows " + that.display_rows + " getNumberOfRows() " + App.ChartsData[graph_idx].getNumberOfRows());
+					if (that.display_rows > 0 && (App.ChartsData[graph_idx].getNumberOfRows() > that.display_rows))
+					{
+						App.ChartsData[graph_idx].removeRow(0);
+					}
+				}
+
 				for (graph_idx = 0; graph_idx < NUM_GRAPHS; graph_idx++)
 				{
 					App.ChartsData[graph_idx].addRows([
