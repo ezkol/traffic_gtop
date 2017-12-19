@@ -2,6 +2,7 @@
 HTML interface for ATS traffic_top utility. Tested on trafficserver-6.2.2.
 
 Only the main page , and only part of the stats are shown. 
+Some graphs (using Google Charts) were added.
 
 The absolute stats seems OK , but some of the "non absolute" stats are still not correct.
 For 7.x some changes might be required (proably the name of the stats page).
