@@ -266,11 +266,11 @@ $( document ).ready(function() {
 "Average size in bytes of combined headers and document bodies for Traffic Server responses to clients",
 
 "The average size of the combined header and document body responses from origin servers to Traffic Server",
+
+"Represents the ratio of bytes served to user agents which were satisfied by cache hits, over the previous 10 seconds",
+
 	];
 
-		// type 5: num / client_req * 100 
-		// type 4: 100 * num/den
-		// type 3: num/den
 		this.ats_stats = [
 			["Ram-Hit"   ,4,[0,1,0,0] ,0,"proxy.process.cache.ram_cache.hits","proxy.process.cache.ram_cache.hits","proxy.process.cache.ram_cache.misses"],	
 			["Fresh"     ,5,[0,1,1,0] ,1,"proxy.process.http.transaction_counts.hit_fresh"],
@@ -331,9 +331,24 @@ $( document ).ready(function() {
 
 			["Client Avg Size",0,[-1,2,8,2],47,  "proxy.process.http.user_agent_response_header_total_size","proxy.process.http.user_agent_response_document_total_size","proxy.process.http.incoming_requests"],
 
-			["Origin Avg Size",0,[-1,3,6,2],48, "proxy.process.http.origin_server_response_header_total_size","proxy.process.http.origin_server_response_document_total_size", "proxy.process.http.outgoing_requests"],	
+			["Origin Avg Size",0,[-1,3,6,2],48, "proxy.process.http.origin_server_response_header_total_size","proxy.process.http.origin_server_response_document_total_size", "proxy.process.http.outgoing_requests"],
+
+			// The difference of proxy.node.user_agent_total_bytes_avg_10s and proxy.node.origin_server_total_bytes_avg_10s, divided by proxy.node.user_agent_total_bytes_avg_10s.
+			["BW hit ratio 10 sec",10,[-1,3,8,0],49,"proxy.node.user_agent_total_bytes_avg_10s","proxy.node.origin_server_total_bytes_avg_10s","proxy.node.user_agent_total_bytes_avg_10s"]	
 		];
 		
+		for (var i = 0; i < this.ats_stats.length; i++)
+		{
+			var name = this.ats_stats[i][0];
+			var tooltip_idx = this.ats_stats[i][3];
+			var tooltip = this.ats_tooltip[tooltip_idx];
+			var tbl  = this.ats_stats[i][2][1];
+			var row  = that.ats_stats[i][2][2];
+			$($("div[data-my-attr='table'] table tbody")[tbl]).find('tr').eq(row).find('td').eq(0).html(name);
+			$($("div[data-my-attr='table'] table tbody")[tbl]).find('tr').eq(row).find('td').eq(0).attr('title',tooltip);	
+		}
+		
+
 		this.prev_stats = {};
 		this.prev_time = {};
 		this.now_time = {};
@@ -357,11 +372,6 @@ $( document ).ready(function() {
 			{
 				prev_stats = prev_statistics.ats;
 			}
-
-			//console.log("now " + stats[that.ats_stats[idx][4]] + " prev " + prev_stats[that.ats_stats[idx][4]]);
-			//console.log("now " + stats[that.ats_stats[idx][5]] + " prev " + prev_stats[that.ats_stats[idx][5]]);
-			//console.log("now " + stats[that.ats_stats[idx][6]] + " prev " + prev_stats[that.ats_stats[idx][6]]);
-			//console.log("now " + stats["proxy.process.http.incoming_requests"] + " prev " + prev_stats["proxy.process.http.incoming_requests"]);
 
 			var stats_parsed = [	parseInt(stats[that.ats_stats[idx][4]]) ,
 						parseInt(stats[that.ats_stats[idx][5]]) , 
@@ -461,6 +471,13 @@ $( document ).ready(function() {
 				res =  num / den;
 				//console.log( name + " type 0 "+ " num " + num + " den " + den + " res " + res);				
 			}
+			else if (type === 10)					
+			{
+				var dif = stats_parsed[1];
+				var den = stats_parsed[2];
+				res =   100 * (num - dif) / den;
+				//console.log( name + " type 0 "+ " num " + num + " den " + den + " res " + res);				
+			}
 			else
 			{
 				console.log("Error unknown type");
@@ -523,8 +540,8 @@ $( document ).ready(function() {
 
 					res = format === 0 ? formatFixed(res) : format === 1 ? formatNumber(res) : formatBytes(res);
 
-					$($("div[data-my-attr='table'] table tbody")[tbl]).find('tr').eq(row).find('td').eq(0).html(name);
-					$($("div[data-my-attr='table'] table tbody")[tbl]).find('tr').eq(row).find('td').eq(0).attr('title',tooltip);	
+					//$($("div[data-my-attr='table'] table tbody")[tbl]).find('tr').eq(row).find('td').eq(0).html(name);
+					//$($("div[data-my-attr='table'] table tbody")[tbl]).find('tr').eq(row).find('td').eq(0).attr('title',tooltip);	
 					$($("div[data-my-attr='table'] table tbody")[tbl]).find('tr').eq(row).find('td').eq(1).html(res);
 
 					
