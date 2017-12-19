@@ -5,7 +5,9 @@ Only the main page , and only part of the stats are shown.
 Some graphs (using Google Charts) were added.
 
 The absolute stats seems OK , but some of the "non absolute" stats are still not correct.
-For 7.x some changes might be required (proably the name of the stats page).
+
+For 7.x some changes might be required (look for /_stats and change it to the name used in 7.x)
+
 
 Note: I am not a WEB developer , so this is mostly cut & paste code. 
 Any corrections / improvements / contributions are welcome.
