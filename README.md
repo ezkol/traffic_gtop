@@ -15,5 +15,5 @@ You can try to push and pin the 2 page in the ATS cache , or use a WEB server (o
 I used SimpleHTTPServer from pyton as follows:
 1) create a new directory on you ATS machine and copy the ats_stats.html and ats_stats.js files to it
 2) run: python -m SimpleHTTPServer 8000 &
-3) add a remap rule to yout ATS remao.config file: map http://<your domain>/<optional path> http://127.0.0.1:8000
-4) try accessing the page: http://<your domain>/<optional path>/ats_stats.html  
+3) add a remap rule to yout ATS remao.config file: map http://your domain/optional path http://127.0.0.1:8000
+4) try accessing the page: http://your domain/optional path/ats_stats.html  
