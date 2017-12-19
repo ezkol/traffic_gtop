@@ -378,7 +378,7 @@ $( document ).ready(function() {
 						parseInt(stats[that.ats_stats[idx][6]]) ,
 						parseInt(stats["proxy.process.http.incoming_requests"])];
 
-			if (!$.isEmptyObject(prev_stats))
+			if (!$.isEmptyObject(prev_stats) && (type !== 1) && (type !== 10))
 			{
 				var diff0 = parseInt(stats[that.ats_stats[idx][4]]) - parseInt(prev_stats[that.ats_stats[idx][4]]);
 				var diff1 = parseInt(stats[that.ats_stats[idx][5]]) - parseInt(prev_stats[that.ats_stats[idx][5]]);
@@ -400,7 +400,7 @@ $( document ).ready(function() {
 				//console.log("time diff " + nDiff);
 			}
 
-			if (!$.isEmptyObject(prev_stats) && (type === 1 || type === 2 || type === 7))
+			if (!$.isEmptyObject(prev_stats) && (type === 2 || type === 7))
 			{
 				for (var i = 0; i < stats_parsed.length; i++)
 				{
