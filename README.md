@@ -1,8 +1,10 @@
 # traffic_gtop
-HTML interface for ATS traffic_top utility. Tested on trafficserver-6.2.2
+HTML interface for ATS traffic_top utility. Tested on trafficserver-6.2.2.
+
 Only the main page , and only part of the stats are shown. 
+
 The absolute stats seems OK , but some of the "non absolute" stats are still not correct.
-For 7.x some changes might be required (proably the name of the stats page)
+For 7.x some changes might be required (proably the name of the stats page).
 
 Note: I am not a WEB developer , so this is mostly cut & paste code. 
 Any corrections / improvements / contributions are welcome.
