@@ -11,7 +11,7 @@ Note: I am not a WEB developer , so this is mostly cut & paste code.
 Any corrections / improvements / contributions are welcome.
 
 To use it , you need to somehow serve the HTML/JS pages.
-You can try to push and pin the 2 page in the ATS cache , or use a WEB server (or your origin). 
+You can try to push and pin the 2 page in the ATS cache , or use a WEB server (or your origin) , or with the lua plugin.
 
 I used SimpleHTTPServer from pyton as follows:
 1) create a new directory on you ATS machine and copy the ats_stats.html and ats_stats.js files to it
