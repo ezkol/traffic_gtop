@@ -1,5 +1,5 @@
 # traffic_gtop
-HTML interface for ATS traffic_top utility. Tested on trafficserver-6.2.2.
+HTML interface for ATS traffic_top utility. Tested on trafficserver-6.2.2 and 7.1.1.
 
 Only the main page , and only part of the stats are shown. 
 Some graphs (using Google Charts) were added.
